@@ -1,0 +1,4 @@
+EqualsBuilder
+=============
+
+EqualsBuilder for PHP
