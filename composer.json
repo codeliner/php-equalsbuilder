@@ -1,0 +1,26 @@
+{
+    "name": "codeliner/php-equalsbuilder",
+    "description": "EqualsBuilder for PHP.",
+    "homepage": "https://github.com/codeliner/php-equalsbuilder",
+    "keywords": [
+        "EqualsBuilder",
+        "equals"
+    ],
+    "type": "library",
+    "license": "BSD-3-Clause",  
+    "authors": [
+        {
+            "name": "Alexander Miertsch",
+            "email": "kontakt@codeliner.ws"
+        }
+    ],
+    "autoload": {
+        "psr-0": {
+            "EqualsBuilder\\": "lib/",
+            "EqualsBuilderTest\\": "tests/"
+        }
+    }, 
+    "require-dev" : {
+        "phpunit/phpunit": "3.7.*"        
+    }
+}
