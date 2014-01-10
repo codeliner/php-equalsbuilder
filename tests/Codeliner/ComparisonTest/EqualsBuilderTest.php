@@ -64,6 +64,6 @@ class EqualsBuilderTest extends \PHPUnit_Framework_TestCase
                 ->strict()
                 ->equals()
             , "Strict comparison failed"
-        );
+        );        
     }
 }
