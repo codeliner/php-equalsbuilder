@@ -12,7 +12,7 @@ Installation of codeliner/php-equalsbuilder uses composer. For composer document
 
 
 ```sh
-"codeliner/php-equalsbuilder" : "1.0.*"
+"codeliner/php-equalsbuilder" : "1.1.*"
 ```
 
 ## Usage
