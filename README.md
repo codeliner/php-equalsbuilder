@@ -20,7 +20,7 @@ Installation of codeliner/php-equalsbuilder uses composer. For composer document
 Use the EqualsBuilder to compare any number of value pairs at once.
 
 ```php
-echo EqualsBuilder::getInstance()
+echo EqualsBuilder::create()
                 ->append('equals', 'equals')
                 ->append(1, 1)
                 ->append(1, '1')
@@ -33,7 +33,7 @@ echo EqualsBuilder::getInstance()
 You can enable strict mode to compare against the value types, too.
 
 ```php
-echo EqualsBuilder::getInstance()
+echo EqualsBuilder::create()
                 ->append('equals', 'equals')
                 ->append(1, 1)
                 ->append(1, '1')

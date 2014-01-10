@@ -23,7 +23,7 @@ class EqualsBuilder
     /**
      * @return EqualsBuilder
      */
-    static public function getInstance()
+    static public function create()
     {
         return new static();
     }

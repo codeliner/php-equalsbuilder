@@ -19,21 +19,21 @@ class EqualsBuilderTest extends \PHPUnit_Framework_TestCase
     public function testEquals()
     {
         $this->assertTrue(
-            EqualsBuilder::getInstance()
+            EqualsBuilder::create()
                 ->append('equals', 'equals')
                 ->equals()
             , "String comparison failed"
         );
         
         $this->assertTrue(
-            EqualsBuilder::getInstance()
+            EqualsBuilder::create()
                 ->append(1, '1')
                 ->equals()
             , "String cast to Integer comparison failed"
         );
         
         $this->assertTrue(
-            EqualsBuilder::getInstance()
+            EqualsBuilder::create()
                 ->append('equals', 'equals')
                 ->append(1, 1)
                 ->equals()
@@ -41,14 +41,14 @@ class EqualsBuilderTest extends \PHPUnit_Framework_TestCase
         );
         
         $this->assertFalse(
-            EqualsBuilder::getInstance()
+            EqualsBuilder::create()
                 ->append('equals', 'other value')
                 ->equals()
             , "Different value comparison failed"
         );
         
         $this->assertFalse(
-            EqualsBuilder::getInstance()
+            EqualsBuilder::create()
                 ->append('equals', 'equals')
                 ->append(1, 2)
                 ->equals()
@@ -59,7 +59,7 @@ class EqualsBuilderTest extends \PHPUnit_Framework_TestCase
     public function testStrict()
     {
         $this->assertFalse(
-            EqualsBuilder::getInstance()
+            EqualsBuilder::create()
                 ->append(1, '1')
                 ->strict()
                 ->equals()
