@@ -30,7 +30,7 @@ echo EqualsBuilder::getInstance()
 //Output: All value pairs are equal
 ```
 
-You can active strict mode to compare against the value types, too.
+You can enable strict mode to compare against the value types, too.
 
 ```php
 echo EqualsBuilder::getInstance()
