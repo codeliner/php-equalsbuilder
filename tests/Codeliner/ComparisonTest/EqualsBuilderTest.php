@@ -9,6 +9,8 @@
 namespace Codeliner\ComparisonTest;
 
 use Codeliner\Comparison\EqualsBuilder;
+use Codeliner\ComparisonTest\Mock\Address;
+
 /**
  * Class EqualsBuilderTest
  * 
@@ -66,4 +68,96 @@ class EqualsBuilderTest extends \PHPUnit_Framework_TestCase
             , "Strict comparison failed"
         );        
     }
+
+    public function testItUsesTrueAsSecondParameterIfOnlyOneIsGiven()
+    {
+        $address = new Address('Hauptstrasse', '1', '10115', 'Berlin');
+        $sameAddress = clone $address;
+        $otherAddress = new Address('Postweg', '2', '12345', 'Testhausen');
+
+        $this->assertTrue(
+            EqualsBuilder::create()
+                ->append($address->sameValueAs($sameAddress))
+                ->equals()
+        );
+
+        $this->assertFalse(
+            EqualsBuilder::create()
+                ->append($address->sameValueAs($otherAddress))
+                ->equals()
+        );
+    }
+
+    public function testItUsesCallbackToCompareGivenValues()
+    {
+        $address = new Address('Hauptstrasse', '1', '10115', 'Berlin');
+        $equalAddress = new Address('Hauptstrasse', '1', '10115', 'Berlin');
+
+        $this->assertFalse(
+            EqualsBuilder::create()
+                ->append($address, $equalAddress)
+                ->strict()
+                ->equals()
+        );
+
+        $this->assertTrue(
+            EqualsBuilder::create()
+                ->append($address, $equalAddress, function (Address $a, Address $b) {
+                    return $a->sameValueAs($b);
+                })
+                ->strict()
+                ->equals()
+        );
+    }
+
+    public function testItUsesCallbackToCompareLists()
+    {
+        $address = new Address('Hauptstrasse', '1', '10115', 'Berlin');
+
+        $aList = array(
+            new Address('Hauptstrasse', '1', '10115', 'Berlin'),
+            new Address('Postweg', '2', '12345', 'Testhausen')
+        );
+
+        $bList = array(
+            new Address('Hauptstrasse', '1', '10115', 'Berlin'),
+            new Address('Postweg', '2', '12345', 'Testhausen')
+        );
+
+        $this->assertTrue(
+            EqualsBuilder::create()
+                ->append($aList, $bList, function(Address $a, Address $b) {
+                    return $a->sameValueAs($b);
+                })
+                ->equals()
+        );
+    }
+
+    public function testItComparesItemCountOfTheGivenListsBeforeUsingCallback()
+    {
+        $callbackUsed = false;
+
+        $aList = array(
+            new Address('Hauptstrasse', '1', '10115', 'Berlin'),
+            new Address('Postweg', '2', '12345', 'Testhausen')
+        );
+
+        $bList = array(
+            new Address('Hauptstrasse', '1', '10115', 'Berlin'),
+            new Address('Postweg', '2', '12345', 'Testhausen'),
+            new Address('Postweg', '2', '12345', 'Testhausen')
+        );
+
+        $this->assertFalse(
+            EqualsBuilder::create()
+                ->append($aList, $bList, function(Address $a, Address $b) use (&$callbackUsed) {
+                    $callbackUsed = true;
+                    return $a->sameValueAs($b);
+                })
+                ->equals()
+        );
+
+        $this->assertFalse($callbackUsed);
+    }
+
 }
